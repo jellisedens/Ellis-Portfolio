@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/*
-  Projects reference Skills via ObjectId instead of storing
-  technology names as strings. This means:
-  - Renaming a skill updates everywhere automatically
-  - You can query "show all projects using React" efficiently
-  - The frontend can display skill details (category, etc.)
-    without duplicating that info on every project
-
-  Use .populate("technologies") when querying to replace
-  the ObjectId array with full skill objects in the response.
-*/
 
 const projectSchema = new mongoose.Schema(
   {

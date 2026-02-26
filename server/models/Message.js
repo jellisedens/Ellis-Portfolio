@@ -1,17 +1,5 @@
 const mongoose = require("mongoose");
 
-/*
-  Messages come from the public contact form.
-  
-  No visible field here — messages aren't displayed on the
-  portfolio. The read field lets a future admin dashboard
-  show unread message count.
-  
-  email validation uses a basic regex. For production you'd
-  use a library like validator.js, but this catches obvious
-  typos without adding a dependency.
-*/
-
 const messageSchema = new mongoose.Schema(
   {
     name: {

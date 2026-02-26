@@ -1,16 +1,5 @@
 const mongoose = require("mongoose");
 
-/*
-  Experience entries represent professional roles.
-  
-  highlights is an array of strings — individual accomplishments
-  like "Built a REST API serving 10k daily requests." These
-  render as bullet points on the frontend, similar to a resume.
-
-  endDate is optional. If null, the frontend displays "Present"
-  which signals this is your current role.
-*/
-
 const experienceSchema = new mongoose.Schema(
   {
     company: {

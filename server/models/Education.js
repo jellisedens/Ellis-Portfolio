@@ -1,14 +1,5 @@
 const mongoose = require("mongoose");
 
-/*
-  Education supports multiple credential types through the
-  type enum. This lets you mix degrees, bootcamps, and
-  certifications in one collection and filter by type
-  on the frontend if needed.
-
-  endDate is optional — null means currently enrolled.
-*/
-
 const educationSchema = new mongoose.Schema(
   {
     institution: {

@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const config = require("./config");
+const connectDB = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
 const notFound = require("./middleware/notFound");
 
@@ -25,8 +26,14 @@ app.use(notFound);
 // --- 5. Error Handler ---
 app.use(errorHandler);
 
-// --- Start Server ---
-app.listen(config.port, () => {
-  console.log(`Server running on http://localhost:${config.port}`);
-  console.log(`Environment: ${config.nodeEnv}`);
-});
+// --- Connect to DB, then start server ---
+const startServer = async () => {
+  await connectDB();
+
+  app.listen(config.port, () => {
+    console.log(`Server running on http://localhost:${config.port}`);
+    console.log(`Environment: ${config.nodeEnv}`);
+  });
+};
+
+startServer();
