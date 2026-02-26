@@ -28,3 +28,7 @@ export async function fetchAPI<T = ApiResponse>(
 export function checkHealth(): Promise<ApiResponse> {
   return fetchAPI("/api/health");
 }
+
+export function getTest(): Promise<ApiResponse> {
+  return fetchAPI("/api/test");
+}

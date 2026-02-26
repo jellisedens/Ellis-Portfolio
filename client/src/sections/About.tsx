@@ -1,4 +1,5 @@
 import SectionHeading from "../components/SectionHeading";
+import TestConnection from "../components/TestConnection";
 
 function About() {
   return (
@@ -8,10 +9,7 @@ function About() {
           title="About Me"
           subtitle="A bit about my background and what drives me."
         />
-        <p className="text-text-muted leading-relaxed">
-          This section will contain your background, skills, and story.
-          We&apos;ll build this out as the portfolio develops.
-        </p>
+        <TestConnection />
       </div>
     </section>
   );
