@@ -1,39 +1,32 @@
-console.log("File is being executed");
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
+const config = require("./config");
+const errorHandler = require("./middleware/errorHandler");
+const notFound = require("./middleware/notFound");
 
 const app = express();
 
-// --------------- Middleware ---------------
+// --- 1. Body Parser ---
 app.use(express.json());
 
+// --- 2. CORS ---
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: config.clientUrl,
   })
 );
 
-// --------------- Routes ---------------
-app.use("/api/health", require("./routes/health"));
+// --- 3. Routes ---
+app.use("/api", require("./routes"));
 
-// --------------- Centralized Error Handler ---------------
-app.use((err, req, res, next) => {
-  console.error(`[Error] ${err.message}`);
+// --- 4. 404 Handler ---
+app.use(notFound);
 
-  const statusCode = err.statusCode || 500;
-  const message =
-    process.env.NODE_ENV === "production"
-      ? "Internal server error"
-      : err.message;
+// --- 5. Error Handler ---
+app.use(errorHandler);
 
-  res.status(statusCode).json({ success: false, error: message });
-});
-
-// --------------- Start Server ---------------
-const PORT = process.env.PORT || 3001;
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || "development"}`);
+// --- Start Server ---
+app.listen(config.port, () => {
+  console.log(`Server running on http://localhost:${config.port}`);
+  console.log(`Environment: ${config.nodeEnv}`);
 });
