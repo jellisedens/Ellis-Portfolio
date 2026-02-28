@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-
 const skillSchema = new mongoose.Schema(
   {
     name: {
@@ -11,12 +10,9 @@ const skillSchema = new mongoose.Schema(
       maxlength: [50, "Skill name cannot exceed 50 characters"],
     },
     category: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
       required: [true, "Category is required"],
-      enum: {
-        values: ["Frontend", "Backend", "Database", "Tools", "Other"],
-        message: "{VALUE} is not a valid category",
-      },
     },
     visible: {
       type: Boolean,

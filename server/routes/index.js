@@ -3,6 +3,7 @@ const router = express.Router();
 
 router.use("/health", require("./health"));
 router.use("/test", require("./test"));
+router.use("/categories", require("./categories"));
 router.use("/skills", require("./skills"));
 router.use("/projects", require("./projects"));
 router.use("/education", require("./education"));
