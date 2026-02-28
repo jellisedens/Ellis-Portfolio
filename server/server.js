@@ -13,7 +13,7 @@ app.use(express.json());
 // --- 2. CORS ---
 app.use(
   cors({
-    origin: config.clientUrl,
+    origin: [config.clientUrl, config.adminUrl],
   })
 );
 

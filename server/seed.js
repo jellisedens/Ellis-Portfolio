@@ -6,6 +6,7 @@ const Skill = require("./models/Skill");
 const Project = require("./models/Project");
 const Education = require("./models/Education");
 const Experience = require("./models/Experience");
+const Admin = require("./models/Admin");
 
 const seedData = async () => {
   try {
@@ -18,6 +19,14 @@ const seedData = async () => {
     await Education.deleteMany({});
     await Experience.deleteMany({});
     console.log("Collections cleared.");
+
+    // --- Admin User ---
+    await Admin.deleteMany({});
+    const admin = await Admin.create({
+      email: process.env.ADMIN_EMAIL,
+      password: process.env.ADMIN_PASSWORD,
+    });
+    console.log(`Admin user created: ${admin.email}`);
 
     // --- Categories ---
     const categoriesData = [
@@ -286,7 +295,7 @@ const seedData = async () => {
 
     process.exit(0);
   } catch (error) {
-    console.error("Seed error:", error.message);
+    console.error("Seed error:", error);
     process.exit(1);
   }
 };
