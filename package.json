@@ -4,12 +4,16 @@
   "description": "Full-stack portfolio website",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\" \"npm run dev:admin\"",
     "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
-    "install:all": "cd client && npm install && cd ../server && npm install"
+    "dev:admin": "cd admin && npm run dev",
+    "install:all": "cd client && npm install && cd ../server && npm install && cd ../admin && npm install"
   },
   "devDependencies": {
     "concurrently": "^9.1.0"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.13.1"
   }
 }

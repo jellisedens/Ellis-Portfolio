@@ -1,62 +1,43 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Layout from "./components/Layout";
+import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import Categories from "./pages/Categories";
+import Skills from "./pages/Skills";
+import Projects from "./pages/Projects";
+import Experience from "./pages/Experience";
+import Education from "./pages/Education";
+import Messages from "./pages/Messages";
 
-function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setMessage("Logging in...");
-
-    try {
-      const res = await fetch("http://localhost:3001/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await res.json();
-
-      if (data.success) {
-        setMessage("Login successful! Token: " + data.token.substring(0, 20) + "...");
-      } else {
-        setMessage("Error: " + data.error);
-      }
-    } catch (err) {
-      setMessage("Connection error: " + err.message);
-    }
-  };
-
+export default function App() {
   return (
-    <div style={{ maxWidth: "400px", margin: "100px auto", fontFamily: "sans-serif" }}>
-      <h1>Admin Login</h1>
-      <form onSubmit={handleLogin}>
-        <div style={{ marginBottom: "10px" }}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+
+          <Route
+            path="/*"
+            element={
+              <ProtectedRoute>
+                <Layout>
+                  <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/categories" element={<Categories />} />
+                    <Route path="/skills" element={<Skills />} />
+                    <Route path="/projects" element={<Projects />} />
+                    <Route path="/experience" element={<Experience />} />
+                    <Route path="/education" element={<Education />} />
+                    <Route path="/messages" element={<Messages />} />
+                  </Routes>
+                </Layout>
+              </ProtectedRoute>
+            }
           />
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%", padding: "8px", boxSizing: "border-box" }}
-          />
-        </div>
-        <button type="submit" style={{ width: "100%", padding: "10px", cursor: "pointer" }}>
-          Login
-        </button>
-      </form>
-      {message && <p style={{ marginTop: "15px" }}>{message}</p>}
-    </div>
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
-
-export default App;
