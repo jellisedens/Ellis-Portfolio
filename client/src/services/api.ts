@@ -1,21 +1,9 @@
-import type { ApiResponse } from "../types";
+import type { DataResponse, Category, Skill, Project, Experience, Education } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
-export async function fetchAPI<T = ApiResponse>(
-  endpoint: string,
-  options: RequestInit = {}
-): Promise<T> {
-  const url = `${API_URL}${endpoint}`;
-
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-    ...options,
-  });
-
+async function fetchAPI<T>(endpoint: string): Promise<T> {
+  const response = await fetch(`${API_URL}${endpoint}`);
   const data = await response.json();
 
   if (!response.ok) {
@@ -25,10 +13,30 @@ export async function fetchAPI<T = ApiResponse>(
   return data as T;
 }
 
-export function checkHealth(): Promise<ApiResponse> {
-  return fetchAPI("/api/health");
+export function getCategories() {
+  return fetchAPI<DataResponse<Category>>("/api/categories");
 }
 
-export function getTest(): Promise<ApiResponse> {
-  return fetchAPI("/api/test");
+export function getSkills() {
+  return fetchAPI<DataResponse<Skill>>("/api/skills");
+}
+
+export function getProjects() {
+  return fetchAPI<DataResponse<Project>>("/api/projects");
+}
+
+export function getExperience() {
+  return fetchAPI<DataResponse<Experience>>("/api/experience");
+}
+
+export function getEducation() {
+  return fetchAPI<DataResponse<Education>>("/api/education");
+}
+
+export function postMessage(body: { name: string; email: string; message: string }) {
+  return fetch(`${API_URL}/api/messages`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body),
+  }).then((res) => res.json());
 }

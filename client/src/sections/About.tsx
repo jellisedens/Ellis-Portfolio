@@ -1,5 +1,4 @@
 import SectionHeading from "../components/SectionHeading";
-import TestConnection from "../components/TestConnection";
 
 function About() {
   return (
@@ -9,7 +8,7 @@ function About() {
           title="About Me"
           subtitle="A bit about my background and what drives me."
         />
-        <TestConnection />
+        <p className="text-gray-600 text-center">Content coming soon.</p>
       </div>
     </section>
   );
