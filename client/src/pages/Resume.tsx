@@ -48,26 +48,26 @@ export default function Resume() {
     ? education
     : education.filter((e) => e.type === eduFilter);
 
-  if (loading) return <div className="py-20 text-center text-gray-500">Loading...</div>;
+  if (loading) return <div className="py-20 text-center text-text-muted">Loading...</div>;
 
   const sectionContent: Record<SectionKey, JSX.Element> = {
     experience: (
       <div className="space-y-6">
         {experiences.map((exp) => (
-          <div key={exp._id} className="bg-white rounded-lg shadow-sm p-6">
+          <div key={exp._id} className="bg-white rounded-lg border border-border p-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
               <h3 className="text-lg font-semibold">{exp.jobTitle}</h3>
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-text-light">
                 {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
               </span>
             </div>
-            <p className="text-blue-600 font-medium mb-2">{exp.company} · {exp.location}</p>
-            <p className="text-gray-600 text-sm mb-3">{exp.description}</p>
+            <p className="text-primary font-medium mb-2">{exp.company} · {exp.location}</p>
+            <p className="text-text-muted text-sm mb-3">{exp.description}</p>
             {exp.highlights.length > 0 && (
               <ul className="space-y-1 mb-3">
                 {exp.highlights.map((h: string, i: number) => (
-                  <li key={i} className="text-sm text-gray-600 flex gap-2">
-                    <span className="text-blue-400 mt-0.5">▸</span>
+                  <li key={i} className="text-sm text-text-muted flex gap-2">
+                    <span className="text-primary mt-0.5">▸</span>
                     {h}
                   </li>
                 ))}
@@ -88,8 +88,8 @@ export default function Resume() {
             onClick={() => setSkillFilter("all")}
             className={`px-3 py-1 text-sm rounded-full border transition-colors ${
               skillFilter === "all"
-                ? "bg-gray-800 text-white border-gray-800"
-                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                ? "bg-charcoal text-white border-charcoal"
+                : "text-text-muted border-border hover:border-charcoal"
             }`}
           >
             All
@@ -101,7 +101,7 @@ export default function Resume() {
               className={`px-3 py-1 text-sm rounded-full border transition-colors ${
                 skillFilter === cat._id
                   ? "text-white border-transparent"
-                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                  : "text-text-muted border-border hover:border-charcoal"
               }`}
               style={skillFilter === cat._id ? { backgroundColor: cat.color } : {}}
             >
@@ -109,7 +109,7 @@ export default function Resume() {
             </button>
           ))}
         </div>
-        <div className="bg-white rounded-lg shadow-sm p-6">
+        <div className="bg-white rounded-lg border border-border p-6">
           <SkillsByCategory skills={filteredSkills} categories={filteredCategories} />
         </div>
       </div>
@@ -118,25 +118,25 @@ export default function Resume() {
     projects: (
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <div key={project._id} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+          <div key={project._id} className="bg-white rounded-lg border border-border p-6">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-lg font-semibold">{project.title}</h3>
-              <span className={`text-xs px-2 py-1 rounded-full ${
-                project.status === "Completed" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
+              <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                project.status === "Completed" ? "bg-green-50 text-green-700" : "bg-amber-50 text-amber-700"
               }`}>
                 {project.status}
               </span>
             </div>
-            <p className="text-gray-600 text-sm mb-3">{project.summary}</p>
+            <p className="text-text-muted text-sm mb-3">{project.summary}</p>
             {project.technologies.length > 0 && (
               <TechTags technologies={project.technologies} categories={categories} />
             )}
-            <div className="flex gap-4 mt-3">
+            <div className="flex gap-4 mt-4">
               {project.githubUrl && (
-                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">GitHub</a>
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">GitHub</a>
               )}
               {project.liveUrl && (
-                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Live Site</a>
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">Live Site</a>
               )}
             </div>
           </div>
@@ -151,8 +151,8 @@ export default function Resume() {
             onClick={() => setEduFilter("all")}
             className={`px-3 py-1 text-sm rounded-full border transition-colors ${
               eduFilter === "all"
-                ? "bg-gray-800 text-white border-gray-800"
-                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                ? "bg-charcoal text-white border-charcoal"
+                : "text-text-muted border-border hover:border-charcoal"
             }`}
           >
             All
@@ -163,8 +163,8 @@ export default function Resume() {
               onClick={() => setEduFilter(type)}
               className={`px-3 py-1 text-sm rounded-full border transition-colors ${
                 eduFilter === type
-                  ? "bg-gray-800 text-white border-gray-800"
-                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                  ? "bg-charcoal text-white border-charcoal"
+                  : "text-text-muted border-border hover:border-charcoal"
               }`}
             >
               {type}
@@ -173,14 +173,14 @@ export default function Resume() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredEducation.map((edu) => (
-            <div key={edu._id} className="bg-white rounded-lg shadow-sm p-6">
-              <span className="inline-block text-xs font-medium px-2 py-1 bg-blue-100 text-blue-700 rounded-full mb-3">
+            <div key={edu._id} className="bg-white rounded-lg border border-border p-6">
+              <span className="inline-block text-xs font-medium px-2 py-1 bg-primary-light text-primary-dark rounded-full mb-3">
                 {edu.type}
               </span>
               <h3 className="text-lg font-semibold">{edu.degree}</h3>
-              <p className="text-blue-600 font-medium">{edu.institution}</p>
-              {edu.fieldOfStudy && <p className="text-sm text-gray-500">{edu.fieldOfStudy}</p>}
-              <p className="text-sm text-gray-400 mt-2">
+              <p className="text-primary font-medium">{edu.institution}</p>
+              {edu.fieldOfStudy && <p className="text-sm text-text-muted">{edu.fieldOfStudy}</p>}
+              <p className="text-sm text-text-light mt-2">
                 {formatDate(edu.startDate)} — {formatDate(edu.endDate)}
               </p>
             </div>
@@ -194,7 +194,7 @@ export default function Resume() {
     <div className="py-20">
       <div className="max-w-5xl mx-auto px-4">
         <h1 className="text-4xl font-bold text-center mb-4">Resume</h1>
-        <p className="text-gray-500 text-center mb-10">
+        <p className="text-text-muted text-center mb-10">
           Click a section to prioritize it.
         </p>
 
@@ -207,8 +207,8 @@ export default function Resume() {
                 onClick={() => toggleSection(section)}
                 className={`px-5 py-2 text-sm font-medium rounded-full border transition-colors capitalize ${
                   activeSections[0] === section
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"
+                    ? "bg-charcoal text-white border-charcoal"
+                    : "text-text-muted border-border hover:border-charcoal"
                 }`}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               >
@@ -232,7 +232,7 @@ export default function Resume() {
               <div className="flex items-center gap-3 mb-6">
                 <span className="text-2xl">{sectionLabels[section].icon}</span>
                 <h2 className="text-2xl font-bold">{sectionLabels[section].title}</h2>
-                <div className="flex-1 h-px bg-gray-200 ml-2"></div>
+                <div className="flex-1 h-px bg-border ml-2"></div>
               </div>
 
               {sectionContent[section]}

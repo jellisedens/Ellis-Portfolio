@@ -1,4 +1,4 @@
-import type { DataResponse, Category, Skill, Project, Experience, Education } from "../types";
+import type { DataResponse, Category, Skill, Project, Experience, Education, Service, SiteSettings } from "../types";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
 
@@ -33,10 +33,18 @@ export function getEducation() {
   return fetchAPI<DataResponse<Education>>("/api/education");
 }
 
+export function getServices() {
+  return fetchAPI<DataResponse<Service>>("/api/services");
+}
+
 export function postMessage(body: { name: string; email: string; message: string }) {
   return fetch(`${API_URL}/api/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   }).then((res) => res.json());
+}
+
+export function getSettings() {
+  return fetchAPI<{ success: boolean; data: SiteSettings }>("/api/settings");
 }

@@ -9,6 +9,8 @@ const navItems = [
   { path: "/experience", label: "Experience", icon: "🏢" },
   { path: "/education", label: "Education", icon: "🎓" },
   { path: "/messages", label: "Messages", icon: "✉️" },
+  { path: "/services", label: "Services", icon: "🛠️" },
+  { path: "/settings", label: "Settings", icon: "⚙️" },
 ];
 
 export default function Layout({ children }) {

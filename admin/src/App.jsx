@@ -10,6 +10,8 @@ import Projects from "./pages/Projects";
 import Experience from "./pages/Experience";
 import Education from "./pages/Education";
 import Messages from "./pages/Messages";
+import Services from "./pages/Services";
+import Settings from "./pages/Settings";  
 
 export default function App() {
   return (
@@ -31,6 +33,8 @@ export default function App() {
                     <Route path="/experience" element={<Experience />} />
                     <Route path="/education" element={<Education />} />
                     <Route path="/messages" element={<Messages />} />
+                    <Route path="/services" element={<Services />} />
+                    <Route path="/settings" element={<Settings />} />
                   </Routes>
                 </Layout>
               </ProtectedRoute>

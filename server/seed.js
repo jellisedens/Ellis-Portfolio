@@ -7,6 +7,8 @@ const Project = require("./models/Project");
 const Education = require("./models/Education");
 const Experience = require("./models/Experience");
 const Admin = require("./models/Admin");
+const Service = require("./models/Service");
+const SiteSettings = require("./models/SiteSettings");
 
 const seedData = async () => {
   try {
@@ -286,12 +288,143 @@ const seedData = async () => {
     const projects = await Project.insertMany(projectsData);
     console.log(`${projects.length} projects created.`);
 
+    // --- Services ---
+    await Service.deleteMany({});
+
+     const services = await Service.create([
+      {
+        title: "Web Development",
+        slug: "web-development",
+        headline: "Custom websites and web applications built to perform",
+        description: "From responsive landing pages to complex full-stack applications, I build fast, accessible, and scalable web experiences using modern technologies like React, Node.js, and MongoDB. Every project is built with clean code, SEO best practices, and your business goals in mind.",
+        icon: "code",
+        features: [
+          "Custom React single-page applications",
+          "Node.js and Express REST APIs",
+          "MongoDB database design and optimization",
+          "Responsive design for all devices",
+          "Performance optimization and Core Web Vitals",
+          "Third-party API integrations",
+        ],
+        technologies: getSkillIds(["React", "JavaScript", "HTML5", "CSS3", "Node.js", "Express", "MongoDB", "Mongoose", "Responsive Design"]),
+        displayOrder: 1,
+        featured: true,
+        visible: true,
+      },
+      {
+        title: "E-Commerce & CMS",
+        slug: "ecommerce-cms",
+        headline: "Online stores and content systems you can manage yourself",
+        description: "I build custom e-commerce solutions and content management systems that put you in control. No more waiting on a developer to update your prices or publish a blog post. You get a clean admin interface and a storefront that converts visitors into customers.",
+        icon: "shopping-cart",
+        features: [
+          "Custom e-commerce storefronts",
+          "Admin dashboards for content management",
+          "Product catalog and inventory management",
+          "Payment gateway integration",
+          "Order management workflows",
+          "Customer account portals",
+        ],
+        technologies: getSkillIds(["React", "Node.js", "Express", "MongoDB", "REST API Design", "Git", "WordPress"]),
+        displayOrder: 2,
+        featured: true,
+        visible: true,
+      },
+      {
+        title: "Digital Marketing Strategy",
+        slug: "digital-marketing",
+        headline: "Drive traffic, generate leads, and grow your brand online",
+        description: "A great website means nothing without visitors. I develop data-driven digital marketing strategies that bring the right audience to your door. From SEO and paid search to email campaigns and social media, every channel works together toward your business goals.",
+        icon: "trending-up",
+        features: [
+          "SEO audits and on-page optimization",
+          "Google Ads and paid search management",
+          "Email marketing campaigns and automation",
+          "Social media strategy and content planning",
+          "Competitor analysis and market research",
+          "Content strategy and copywriting",
+        ],
+        technologies: getSkillIds(["SEO/SEM", "Google Analytics", "HubSpot", "Email Marketing Automation", "Data Analysis & Reporting"]),
+        displayOrder: 3,
+        featured: true,
+        visible: true,
+      },
+      {
+        title: "Analytics & Optimization",
+        slug: "analytics-optimization",
+        headline: "Know what's working, fix what isn't",
+        description: "I set up comprehensive tracking and analytics so you can make decisions based on data, not gut feelings. From Google Analytics configuration to conversion rate optimization, I help you understand your users and continuously improve your results.",
+        icon: "bar-chart",
+        features: [
+          "Google Analytics 4 setup and configuration",
+          "Conversion tracking and goal setup",
+          "Custom dashboards and reporting",
+          "A/B testing and experimentation",
+          "User behavior analysis with heatmaps",
+          "Monthly performance reporting",
+        ],
+        technologies: getSkillIds(["Google Analytics", "SEO/SEM", "HubSpot", "Data Analysis & Reporting", "Campaign Attribution Modeling"]),
+        displayOrder: 4,
+        featured: false,
+        visible: true,
+      },
+      {
+        title: "Marketing Automation",
+        slug: "marketing-automation",
+        headline: "Put your marketing on autopilot",
+        description: "Stop doing repetitive marketing tasks manually. I build automated workflows that nurture leads, onboard customers, and re-engage inactive users — all while you focus on running your business. From HubSpot to custom solutions, I make your marketing work while you sleep.",
+        icon: "zap",
+        features: [
+          "HubSpot CRM setup and optimization",
+          "Email drip campaigns and sequences",
+          "Lead scoring and qualification workflows",
+          "Customer onboarding automation",
+          "CRM integration with your website",
+          "Workflow design and implementation",
+        ],
+        technologies: getSkillIds(["HubSpot", "Email Marketing Automation", "REST API Design", "Node.js"]),
+        displayOrder: 5,
+        featured: false,
+        visible: true,
+      },
+    ]);
+    console.log("Services seeded");
+
+    // --- Site Settings ---
+    await SiteSettings.deleteMany({});
+    await SiteSettings.create({
+      siteName: "Ellis Eden",
+      siteTitle: "Full-Stack Developer & Digital Marketer",
+      siteDescription: "I build fast, scalable web applications and drive growth through data-driven digital marketing. From React and Node.js to HubSpot and analytics — I bridge the gap between development and marketing.",
+      githubUrl: "https://github.com/jellisedens",
+      linkedinUrl: "",
+      twitterUrl: "",
+      websiteUrl: "",
+      colorPrimary: "#2563eb",
+      colorPrimaryDark: "#1d4ed8",
+      colorPrimaryLight: "#dbeafe",
+      colorAccent: "#2563eb",
+      colorCharcoal: "#111111",
+      colorCharcoalLight: "#1a1a1a",
+      colorBackground: "#ffffff",
+      colorSurface: "#ffffff",
+      colorSurfaceAlt: "#f9fafb",
+      colorText: "#1a1a1a",
+      colorTextMuted: "#6b7280",
+      colorTextLight: "#9ca3af",
+      colorTextInverse: "#ffffff",
+      fontHeading: "DM Sans",
+      fontBody: "Inter",
+    });
+    console.log("Site settings seeded");
+
     console.log("\nSeed completed successfully!");
     console.log(`  Categories: ${categories.length}`);
     console.log(`  Skills:     ${skills.length}`);
     console.log(`  Education:  ${education.length}`);
     console.log(`  Experience: ${experience.length}`);
     console.log(`  Projects:   ${projects.length}`);
+     console.log(`  Services:   ${services.length}`);
 
     process.exit(0);
   } catch (error) {

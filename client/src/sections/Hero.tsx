@@ -1,26 +1,28 @@
-import { siteConfig } from "../data/portfolio";
+import { useData } from "../context/DataContext";
 
-function Hero() {
+export default function Hero() {
+  const { settings } = useData();
+
   return (
-    <section className="flex min-h-screen items-center justify-center px-6">
-      <div className="text-center max-w-2xl">
-        <p className="mb-2 text-sm font-medium tracking-wide text-primary uppercase">
-          {siteConfig.title}
+    <section className="bg-charcoal">
+      <div className="max-w-4xl mx-auto px-4 py-32 text-center">
+        <p className="text-white/70 text-sm font-medium tracking-wide uppercase mb-4">
+          {settings.siteTitle}
         </p>
-        <h1 className="text-5xl font-bold text-text md:text-6xl">
-          Hi, I&apos;m {siteConfig.name}
+        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+          {settings.siteName}
         </h1>
-        <p className="mt-4 text-lg text-text-muted">
-          {siteConfig.description}
+        <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10">
+          {settings.siteDescription}
         </p>
-        <div className="mt-8 flex justify-center gap-4">
-          <a href="/projects" className="rounded-lg bg-primary px-6 py-3 text-sm font-medium text-white hover:bg-primary-dark transition-colors">
+        <div className="flex justify-center gap-4 flex-wrap">
+          <a href="/services" className="bg-primary text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
+            View Services
+          </a>
+          <a href="/projects" className="border border-white/20 text-white px-6 py-3 rounded-lg text-sm font-medium hover:border-white/40 transition-colors">
             View My Work
           </a>
-          <a href="/resume" className="rounded-lg border border-secondary/30 px-6 py-3 text-sm font-medium text-text hover:border-primary hover:text-primary transition-colors">
-            View Resume
-          </a>
-          <a href="/#contact" className="rounded-lg border border-secondary/30 px-6 py-3 text-sm font-medium text-text hover:border-primary hover:text-primary transition-colors">
+          <a href="/#contact" className="border border-white/20 text-white px-6 py-3 rounded-lg text-sm font-medium hover:border-white/40 transition-colors">
             Get In Touch
           </a>
         </div>
@@ -28,5 +30,3 @@ function Hero() {
     </section>
   );
 }
-
-export default Hero;

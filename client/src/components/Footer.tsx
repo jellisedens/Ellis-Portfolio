@@ -1,24 +1,23 @@
-import { siteConfig, socialLinks } from "../data/portfolio";
+import { useData } from "../context/DataContext";
 
-function Footer() {
-  const currentYear = new Date().getFullYear();
+export default function Footer() {
+  const { settings } = useData();
 
   return (
-    <footer className="border-t border-secondary/10 px-6 py-8">
-      <div className="mx-auto max-w-5xl flex flex-col items-center gap-4 md:flex-row md:justify-between">
-        <p className="text-sm text-text-muted">
-          &copy; {currentYear} {siteConfig.name}. All rights reserved.
+    <footer className="bg-charcoal border-t border-white/5 py-8">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p className="text-white/40 text-sm">
+          © {new Date().getFullYear()} {settings.siteName}
         </p>
-        <div className="flex gap-4">
-  {socialLinks.map((link) => (
-    <a key={link.platform} href={link.url} target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-primary transition-colors" aria-label={link.label}>
-      {link.platform}
-    </a>
-  ))}
-</div>
+        <div className="flex gap-6">
+          {settings.githubUrl && (
+            <a href={settings.githubUrl} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white text-sm transition-colors">GitHub</a>
+          )}
+          {settings.linkedinUrl && (
+            <a href={settings.linkedinUrl} target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-white text-sm transition-colors">LinkedIn</a>
+          )}
+        </div>
       </div>
     </footer>
   );
 }
-
-export default Footer;

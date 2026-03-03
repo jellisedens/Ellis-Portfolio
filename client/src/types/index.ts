@@ -76,3 +76,43 @@ export interface DataResponse<T> {
   count: number;
   data: T[];
 }
+
+export interface Service {
+  _id: string;
+  title: string;
+  slug: string;
+  headline: string;
+  description: string;
+  icon: string;
+  features: string[];
+  technologies: Skill[];
+  displayOrder: number;
+  featured: boolean;
+  visible: boolean;
+}
+
+export interface SiteSettings {
+  _id: string;
+  siteName: string;
+  siteTitle: string;
+  siteDescription: string;
+  githubUrl: string;
+  linkedinUrl: string;
+  twitterUrl: string;
+  websiteUrl: string;
+  colorPrimary: string;
+  colorPrimaryDark: string;
+  colorPrimaryLight: string;
+  colorAccent: string;
+  colorCharcoal: string;
+  colorCharcoalLight: string;
+  colorBackground: string;
+  colorSurface: string;
+  colorSurfaceAlt: string;
+  colorText: string;
+  colorTextMuted: string;
+  colorTextLight: string;
+  colorTextInverse: string;
+  fontHeading: string;
+  fontBody: string;
+}

@@ -11,5 +11,7 @@ router.use("/projects", require("./projects"));
 router.use("/education", require("./education"));
 router.use("/experience", require("./experience"));
 router.use("/messages", require("./messages"));
+router.use("/services", require("./services"));
+router.use("/settings", require("./siteSetting"));
 
 module.exports = router;
