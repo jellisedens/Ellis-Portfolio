@@ -1,22 +1,22 @@
 import type { NavLink, SocialLink } from "../types";
 
 export const siteConfig = {
-  name: "Ellis",
-  title: "Full-Stack Developer",
+  name: "Ellis Edens",
+  title: "Full-Stack Developer & Digital Marketer",
   description:
-    "I build modern web applications with React, Node.js, and MongoDB.",
+    "I build modern web applications and drive digital marketing strategy. From full-stack development to marketing automation, analytics, and campaign optimization — I bridge the gap between code and conversion.",
 };
 
 export const navLinks: NavLink[] = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "Resume", href: "/resume" },
+  { label: "Projects", href: "/projects" },
 ];
 
 export const socialLinks: SocialLink[] = [
   {
     platform: "GitHub",
-    url: "https://github.com/yourusername",
+    url: "https://github.com/jellisedens",
     label: "GitHub Profile",
   },
   {

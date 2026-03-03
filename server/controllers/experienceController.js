@@ -3,7 +3,14 @@ const Experience = require("../models/Experience");
 const getExperiences = async (req, res, next) => {
   try {
     const experiences = await Experience.find({ visible: true })
-      .populate("technologies", "name category")
+      .populate({
+        path: "technologies",
+        select: "name category",
+        populate: {
+          path: "category",
+          select: "name slug color icon",
+        },
+      })
       .sort({ endDate: -1 });
 
     res.status(200).json({
@@ -19,7 +26,14 @@ const getExperiences = async (req, res, next) => {
 const getExperienceById = async (req, res, next) => {
   try {
     const experience = await Experience.findById(req.params.id)
-      .populate("technologies", "name category");
+      .populate({
+        path: "technologies",
+        select: "name category",
+        populate: {
+          path: "category",
+          select: "name slug color icon",
+        },
+      });
 
     if (!experience) {
       const error = new Error("Experience not found");

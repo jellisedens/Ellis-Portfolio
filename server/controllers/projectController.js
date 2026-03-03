@@ -3,7 +3,14 @@ const Project = require("../models/Project");
 const getProjects = async (req, res, next) => {
   try {
     const projects = await Project.find({ visible: true })
-      .populate("technologies", "name category")
+      .populate({
+        path: "technologies",
+        select: "name category",
+        populate: {
+          path: "category",
+          select: "name slug color icon",
+        },
+      })
       .sort({ createdAt: -1 });
 
     res.status(200).json({
@@ -19,7 +26,14 @@ const getProjects = async (req, res, next) => {
 const getProjectById = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id)
-      .populate("technologies", "name category");
+      .populate({
+        path: "technologies",
+        select: "name category",
+        populate: {
+          path: "category",
+          select: "name slug color icon",
+        },
+      });
 
     if (!project) {
       const error = new Error("Project not found");

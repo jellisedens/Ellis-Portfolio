@@ -1,28 +1,28 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { DataProvider } from "./context/DataContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Hero from "./sections/Hero";
-import About from "./sections/About";
-import Skills from "./sections/Skills";
-import Projects from "./sections/Projects";
-import Experience from "./sections/Experience";
-import Education from "./sections/Education";
-import Contact from "./sections/Contact";
+import Home from "./pages/Home";
+import Resume from "./pages/Resume";
+import Projects from "./pages/Projects";
 
 function App() {
   return (
-    <div className="min-h-screen bg-background text-text">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <Education />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <DataProvider>
+        <div className="min-h-screen bg-background text-text">
+          <Navbar />
+          <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/resume" element={<Resume />} />
+              <Route path="/projects" element={<Projects />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </DataProvider>
+    </BrowserRouter>
   );
 }
 

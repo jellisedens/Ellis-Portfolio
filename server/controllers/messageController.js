@@ -33,6 +33,20 @@ const getMessageById = async (req, res, next) => {
 const createMessage = async (req, res, next) => {
   try {
     const message = await Message.create(req.body);
+
+    // Send email notification
+    try {
+      const { sendContactEmail } = require("../utils/sendEmail");
+      await sendContactEmail({
+        name: message.name,
+        email: message.email,
+        message: message.message,
+      });
+    } catch (emailError) {
+      console.error("Email failed to send:", emailError.message);
+      // Don't fail the request if email fails — message is still saved
+    }
+
     res.status(201).json({ success: true, data: message });
   } catch (error) {
     next(error);

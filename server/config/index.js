@@ -8,6 +8,9 @@ const config = {
   mongoUri: process.env.MONGODB_URI,
   jwtSecret: process.env.JWT_SECRET,
   jwtExpire: process.env.JWT_EXPIRE || "7d",
+  emailUser: process.env.EMAIL_USER,
+  emailPass: process.env.EMAIL_PASS,
+  emailTo: process.env.EMAIL_TO,
 };
 
 module.exports = config;

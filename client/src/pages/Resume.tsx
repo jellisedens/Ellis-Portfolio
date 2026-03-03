@@ -1,0 +1,245 @@
+import { useState, type JSX } from "react";
+import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
+import { useData } from "../context/DataContext";
+import SkillsByCategory from "../components/SkillsByCategory";
+import TechTags from "../components/TechTags";
+
+type SectionKey = "experience" | "skills" | "projects" | "education";
+
+const sectionLabels: Record<SectionKey, { title: string; icon: string }> = {
+  experience: { title: "Experience", icon: "🏢" },
+  skills: { title: "Skills & Technologies", icon: "⚡" },
+  projects: { title: "Projects", icon: "💼" },
+  education: { title: "Education", icon: "🎓" },
+};
+
+export default function Resume() {
+  const { skills, categories, experiences, education, projects, loading } = useData();
+
+  const [activeSections, setActiveSections] = useState<SectionKey[]>([
+    "experience", "skills", "projects", "education",
+  ]);
+
+  const [skillFilter, setSkillFilter] = useState<string>("all");
+  const [eduFilter, setEduFilter] = useState<string>("all");
+
+  const toggleSection = (section: SectionKey) => {
+    setActiveSections((prev) => {
+      const without = prev.filter((s) => s !== section);
+      return [section, ...without];
+    });
+  };
+
+  const formatDate = (dateStr: string | null) => {
+    if (!dateStr) return "Present";
+    return new Date(dateStr).toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  };
+
+  const filteredSkills = skillFilter === "all"
+    ? skills
+    : skills.filter((s) => s.category?._id === skillFilter);
+
+  const filteredCategories = skillFilter === "all"
+    ? categories
+    : categories.filter((c) => c._id === skillFilter);
+
+  const eduTypes = [...new Set(education.map((e) => e.type))];
+  const filteredEducation = eduFilter === "all"
+    ? education
+    : education.filter((e) => e.type === eduFilter);
+
+  if (loading) return <div className="py-20 text-center text-gray-500">Loading...</div>;
+
+  const sectionContent: Record<SectionKey, JSX.Element> = {
+    experience: (
+      <div className="space-y-6">
+        {experiences.map((exp) => (
+          <div key={exp._id} className="bg-white rounded-lg shadow-sm p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
+              <h3 className="text-lg font-semibold">{exp.jobTitle}</h3>
+              <span className="text-sm text-gray-500">
+                {formatDate(exp.startDate)} — {formatDate(exp.endDate)}
+              </span>
+            </div>
+            <p className="text-blue-600 font-medium mb-2">{exp.company} · {exp.location}</p>
+            <p className="text-gray-600 text-sm mb-3">{exp.description}</p>
+            {exp.highlights.length > 0 && (
+              <ul className="space-y-1 mb-3">
+                {exp.highlights.map((h: string, i: number) => (
+                  <li key={i} className="text-sm text-gray-600 flex gap-2">
+                    <span className="text-blue-400 mt-0.5">▸</span>
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {exp.technologies.length > 0 && (
+              <TechTags technologies={exp.technologies} categories={categories} />
+            )}
+          </div>
+        ))}
+      </div>
+    ),
+
+    skills: (
+      <div>
+        <div className="flex gap-2 mb-6 flex-wrap">
+          <button
+            onClick={() => setSkillFilter("all")}
+            className={`px-3 py-1 text-sm rounded-full border transition-colors ${
+              skillFilter === "all"
+                ? "bg-gray-800 text-white border-gray-800"
+                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+            }`}
+          >
+            All
+          </button>
+          {categories.map((cat) => (
+            <button
+              key={cat._id}
+              onClick={() => setSkillFilter(cat._id)}
+              className={`px-3 py-1 text-sm rounded-full border transition-colors ${
+                skillFilter === cat._id
+                  ? "text-white border-transparent"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+              }`}
+              style={skillFilter === cat._id ? { backgroundColor: cat.color } : {}}
+            >
+              {cat.name}
+            </button>
+          ))}
+        </div>
+        <div className="bg-white rounded-lg shadow-sm p-6">
+          <SkillsByCategory skills={filteredSkills} categories={filteredCategories} />
+        </div>
+      </div>
+    ),
+
+    projects: (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {projects.map((project) => (
+          <div key={project._id} className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-lg font-semibold">{project.title}</h3>
+              <span className={`text-xs px-2 py-1 rounded-full ${
+                project.status === "Completed" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
+              }`}>
+                {project.status}
+              </span>
+            </div>
+            <p className="text-gray-600 text-sm mb-3">{project.summary}</p>
+            {project.technologies.length > 0 && (
+              <TechTags technologies={project.technologies} categories={categories} />
+            )}
+            <div className="flex gap-4 mt-3">
+              {project.githubUrl && (
+                <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">GitHub</a>
+              )}
+              {project.liveUrl && (
+                <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">Live Site</a>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    ),
+
+    education: (
+      <div>
+        <div className="flex gap-2 mb-6 flex-wrap">
+          <button
+            onClick={() => setEduFilter("all")}
+            className={`px-3 py-1 text-sm rounded-full border transition-colors ${
+              eduFilter === "all"
+                ? "bg-gray-800 text-white border-gray-800"
+                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+            }`}
+          >
+            All
+          </button>
+          {eduTypes.map((type) => (
+            <button
+              key={type}
+              onClick={() => setEduFilter(type)}
+              className={`px-3 py-1 text-sm rounded-full border transition-colors ${
+                eduFilter === type
+                  ? "bg-gray-800 text-white border-gray-800"
+                  : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+              }`}
+            >
+              {type}
+            </button>
+          ))}
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {filteredEducation.map((edu) => (
+            <div key={edu._id} className="bg-white rounded-lg shadow-sm p-6">
+              <span className="inline-block text-xs font-medium px-2 py-1 bg-blue-100 text-blue-700 rounded-full mb-3">
+                {edu.type}
+              </span>
+              <h3 className="text-lg font-semibold">{edu.degree}</h3>
+              <p className="text-blue-600 font-medium">{edu.institution}</p>
+              {edu.fieldOfStudy && <p className="text-sm text-gray-500">{edu.fieldOfStudy}</p>}
+              <p className="text-sm text-gray-400 mt-2">
+                {formatDate(edu.startDate)} — {formatDate(edu.endDate)}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    ),
+  };
+
+  return (
+    <div className="py-20">
+      <div className="max-w-5xl mx-auto px-4">
+        <h1 className="text-4xl font-bold text-center mb-4">Resume</h1>
+        <p className="text-gray-500 text-center mb-10">
+          Click a section to prioritize it.
+        </p>
+
+        <LayoutGroup>
+          <div className="flex justify-center gap-3 mb-12 flex-wrap">
+            {activeSections.map((section) => (
+              <motion.button
+                key={section}
+                layoutId={`btn-${section}`}
+                onClick={() => toggleSection(section)}
+                className={`px-5 py-2 text-sm font-medium rounded-full border transition-colors capitalize ${
+                  activeSections[0] === section
+                    ? "bg-blue-600 text-white border-blue-600"
+                    : "bg-white text-gray-600 border-gray-300 hover:border-blue-400"
+                }`}
+                transition={{ type: "spring", stiffness: 500, damping: 30 }}
+              >
+                {section}
+              </motion.button>
+            ))}
+          </div>
+        </LayoutGroup>
+
+        <AnimatePresence mode="popLayout">
+          {activeSections.map((section, index) => (
+            <motion.div
+              key={section}
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30, delay: index * 0.05 }}
+              className="mb-12"
+            >
+              <div className="flex items-center gap-3 mb-6">
+                <span className="text-2xl">{sectionLabels[section].icon}</span>
+                <h2 className="text-2xl font-bold">{sectionLabels[section].title}</h2>
+                <div className="flex-1 h-px bg-gray-200 ml-2"></div>
+              </div>
+
+              {sectionContent[section]}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+}
