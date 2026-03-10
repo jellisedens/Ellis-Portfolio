@@ -5,24 +5,27 @@ export default function Hero() {
 
   return (
     <section className="bg-charcoal">
-      <div className="max-w-4xl mx-auto px-4 py-32 text-center">
-        <p className="text-white/70 text-sm font-medium tracking-wide uppercase mb-4">
+      <div className="max-w-3xl mx-auto px-4 py-36 md:py-44 text-center">
+        <p className="text-text-inverse/70 text-sm font-medium mb-6">
           {settings.siteTitle}
         </p>
-        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight mb-6">
+        <h1 className="text-5xl md:text-7xl font-bold text-text-inverse tracking-tight leading-tight mb-8">
           {settings.siteName}
         </h1>
-        <p className="text-lg text-white/60 max-w-2xl mx-auto mb-10">
+        <p className="text-xl text-text-inverse/70 max-w-xl mx-auto mb-12 leading-relaxed">
           {settings.siteDescription}
         </p>
-        <div className="flex justify-center gap-4 flex-wrap">
-          <a href="/services" className="bg-primary text-white px-6 py-3 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors">
-            View Services
-          </a>
-          <a href="/projects" className="border border-white/20 text-white px-6 py-3 rounded-lg text-sm font-medium hover:border-white/40 transition-colors">
+        <div className="flex justify-center gap-4">
+          <a
+            href="/projects"
+            className="bg-primary text-text-inverse px-7 py-3.5 rounded-lg text-sm font-medium hover:bg-primary-dark transition-colors"
+          >
             View My Work
           </a>
-          <a href="/#contact" className="border border-white/20 text-white px-6 py-3 rounded-lg text-sm font-medium hover:border-white/40 transition-colors">
+          <a
+            href="/#contact"
+            className="border border-text-inverse/20 text-text-inverse px-7 py-3.5 rounded-lg text-sm font-medium hover:border-text-inverse/40 transition-colors"
+          >
             Get In Touch
           </a>
         </div>

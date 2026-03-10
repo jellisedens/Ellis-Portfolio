@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useData } from "../context/DataContext";
 
 const navLinks = [
-  { label: "Home", path: "/" },
   { label: "Services", path: "/services" },
   { label: "Resume", path: "/resume" },
   { label: "Projects", path: "/projects" },
@@ -28,16 +27,17 @@ export default function Navbar() {
               to={link.path}
               className={`text-sm transition-colors ${
                 location.pathname === link.path
-                  ? "text-white font-medium"
-                  : "text-white/60 hover:text-white"
+                  ? "text-text-inverse font-medium"
+                  : "text-text-inverse/60 hover:text-text-inverse"
               }`}
             >
               {link.label}
             </Link>
           ))}
-          
-          <a  href="/#contact"
-            className="bg-primary text-white text-sm px-4 py-2 rounded-lg hover:bg-primary-dark transition-colors"
+
+          <a
+            href="/#contact"
+            className="text-sm transition-colors text-text-inverse/60 hover:text-text-inverse"
           >
             Contact
           </a>
@@ -45,14 +45,14 @@ export default function Navbar() {
 
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="lg:hidden text-white"
+          className="lg:hidden text-text-inverse"
         >
           {isOpen ? "✕" : "☰"}
         </button>
       </div>
 
       {isOpen && (
-        <div className="lg:hidden border-t border-white/10 bg-charcoal px-4 py-4 space-y-3">
+        <div className="lg:hidden border-t border-text-inverse/10 bg-charcoal px-4 py-4 space-y-3">
           {navLinks.map((link) => (
             <Link
               key={link.path}
@@ -60,17 +60,18 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
               className={`block text-sm ${
                 location.pathname === link.path
-                  ? "text-white font-medium"
-                  : "text-white/60"
+                  ? "text-text-inverse font-medium"
+                  : "text-text-inverse/60"
               }`}
             >
               {link.label}
             </Link>
           ))}
-          
-          <a  href="/#contact"
+
+          <a
+            href="/#contact"
             onClick={() => setIsOpen(false)}
-            className="block text-sm text-primary"
+            className="block text-sm text-text-inverse/60"
           >
             Contact
           </a>

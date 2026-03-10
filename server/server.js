@@ -4,6 +4,7 @@ const config = require("./config");
 const connectDB = require("./config/db");
 const errorHandler = require("./middleware/errorHandler");
 const notFound = require("./middleware/notFound");
+const cacheControl = require("./middleware/cacheControl");
 
 const app = express();
 
@@ -17,13 +18,18 @@ app.use(
   })
 );
 
-// --- 3. Routes ---
+// --- 3. Cache Control ---
+// Browser caches GET responses for 5 minutes (300s).
+// POST/PUT/DELETE are unaffected — only reads are cached.
+app.use("/api", cacheControl(300));
+
+// --- 4. Routes ---
 app.use("/api", require("./routes"));
 
-// --- 4. 404 Handler ---
+// --- 5. 404 Handler ---
 app.use(notFound);
 
-// --- 5. Error Handler ---
+// --- 6. Error Handler ---
 app.use(errorHandler);
 
 // --- Connect to DB, then start server ---

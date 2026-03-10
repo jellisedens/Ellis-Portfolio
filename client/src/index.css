@@ -32,3 +32,24 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
+
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Tighten heading tracking globally for the polished feel */
+h1, h2, h3 {
+  letter-spacing: -0.02em;
+}
+
+/* Remove the harsh transition between charcoal hero and white content */
+section + section {
+  position: relative;
+}
+
+/* Add a fade-in animation to sections for a smoother transition */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

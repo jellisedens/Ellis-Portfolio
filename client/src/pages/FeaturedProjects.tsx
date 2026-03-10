@@ -1,68 +1,84 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getProjects } from "../services/api";
-import type { Project } from "../types";
+import { useData } from "../context/DataContext";
 
 export default function FeaturedProjects() {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getProjects();
-        setProjects(res.data.slice(0, 3));
-      } catch (err) {
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const { projects, categories, loading } = useData();
 
   if (loading) return null;
 
+  const featured = projects.slice(0, 3);
+
+  const placeholderStyles = [
+    "from-charcoal to-charcoal-light",
+    "from-charcoal-light to-charcoal",
+  ];
+
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-28 border-t border-border">
       <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+        <h2 className="text-3xl font-bold text-center tracking-tight mb-14">
+          Featured Projects
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <div key={project._id} className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <span className={`text-xs px-2 py-1 rounded-full ${
-                    project.status === "Completed" ? "bg-green-100 text-green-700" : "bg-yellow-100 text-yellow-700"
-                  }`}>
-                    {project.status}
-                  </span>
-                </div>
+          {featured.map((project, index) => (
+            <div
+              key={project._id}
+              className="rounded-lg border border-border overflow-hidden hover:border-charcoal/20 transition-colors"
+            >
+              <div
+                className={`h-48 bg-gradient-to-br ${placeholderStyles[index % placeholderStyles.length]} flex items-center justify-center`}
+              >
+                <span className="text-text-inverse/20 text-5xl font-bold tracking-tight select-none">
+                  {project.title
+                    .split(" ")
+                    .map((w: string) => w[0])
+                    .join("")
+                    .substring(0, 3)}
+                </span>
+              </div>
 
-                <p className="text-gray-600 mb-4">{project.summary}</p>
+              <div className="p-8">
+                <h3 className="text-lg font-semibold mb-3">{project.title}</h3>
+                <p className="text-text text-sm leading-relaxed mb-5">
+                  {project.summary}
+                </p>
 
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.technologies.map((tech) => (
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {project.technologies.slice(0, 6).map((tech) => (
                     <span
                       key={tech._id}
-                      className="text-xs px-2 py-0.5 rounded-full text-white"
-                      style={{ backgroundColor: tech.category?.color || "#6b7280" }}
+                      className="text-xs px-2.5 py-1 rounded-md bg-surface-alt text-text-muted font-medium border-2"
+                      style={{ borderColor: tech.category?.color || "var(--color-border)" }}
                     >
                       {tech.name}
                     </span>
                   ))}
+                  {project.technologies.length > 6 && (
+                    <span className="text-xs px-2.5 py-1 rounded-md bg-surface-alt text-text-muted font-medium border-2 border-border">
+                      +{project.technologies.length - 6}
+                    </span>
+                  )}
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-5 border-t border-border">
                   {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
+                    >
                       GitHub
                     </a>
                   )}
                   {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-blue-600 hover:underline">
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
+                    >
                       Live Site
                     </a>
                   )}
@@ -75,9 +91,9 @@ export default function FeaturedProjects() {
         <div className="text-center mt-10">
           <Link
             to="/projects"
-            className="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
+            className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
           >
-            View All Projects
+            View all projects
           </Link>
         </div>
       </div>

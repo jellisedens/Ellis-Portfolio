@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { useData } from "../context/DataContext";
-import TechTags from "../components/TechTags";
 
 export default function FeaturedProjects() {
   const { projects, categories, loading } = useData();
@@ -9,31 +8,79 @@ export default function FeaturedProjects() {
 
   const featured = projects.slice(0, 3);
 
-  return (
-    <section id="projects" className="py-20 bg-surface-alt">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-center mb-12">Featured Projects</h2>
+  const placeholderStyles = [
+    "from-charcoal to-charcoal-light",
+    "from-charcoal-light to-charcoal",
+  ];
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {featured.map((project) => (
-            <div key={project._id} className="bg-white rounded-lg border border-border overflow-hidden">
-              <div className="p-6">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-lg font-semibold">{project.title}</h3>
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium ${
-                    project.status === "Completed" ? "bg-green-50 text-green-700" : "bg-amber-50 text-amber-700"
-                  }`}>
-                    {project.status}
-                  </span>
+  return (
+    <section id="projects" className="py-28 border-t border-border">
+      <div className="max-w-6xl mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center tracking-tight mb-14">
+          Featured Projects
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {featured.map((project, index) => (
+            <div
+              key={project._id}
+              className="rounded-lg border border-border overflow-hidden hover:border-charcoal/20 transition-colors"
+            >
+              <div
+                className={`h-48 bg-gradient-to-br ${placeholderStyles[index % placeholderStyles.length]} flex items-center justify-center`}
+              >
+                <span className="text-text-inverse/20 text-5xl font-bold tracking-tight select-none">
+                  {project.title
+                    .split(" ")
+                    .map((w: string) => w[0])
+                    .join("")
+                    .substring(0, 3)}
+                </span>
+              </div>
+
+              <div className="p-8">
+                <h3 className="text-lg font-semibold mb-3">{project.title}</h3>
+                <p className="text-text text-sm leading-relaxed mb-5">
+                  {project.summary}
+                </p>
+
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {project.technologies.slice(0, 6).map((tech) => (
+                    <span
+                      key={tech._id}
+                      className="text-xs px-2.5 py-1 rounded-md bg-surface-alt text-text-muted font-medium border-2"
+                      style={{ borderColor: tech.category?.color || "var(--color-border)" }}
+                    >
+                      {tech.name}
+                    </span>
+                  ))}
+                  {project.technologies.length > 6 && (
+                    <span className="text-xs px-2.5 py-1 rounded-md bg-surface-alt text-text-muted font-medium border-2 border-border">
+                      +{project.technologies.length - 6}
+                    </span>
+                  )}
                 </div>
-                <p className="text-text-muted text-sm mb-4">{project.summary}</p>
-                <TechTags technologies={project.technologies} categories={categories} />
-                <div className="flex gap-4 mt-4">
+
+                <div className="flex gap-4 pt-5 border-t border-border">
                   {project.githubUrl && (
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">GitHub</a>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
+                    >
+                      GitHub
+                    </a>
                   )}
                   {project.liveUrl && (
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-primary hover:underline">Live Site</a>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
+                    >
+                      Live Site
+                    </a>
                   )}
                 </div>
               </div>
@@ -42,8 +89,11 @@ export default function FeaturedProjects() {
         </div>
 
         <div className="text-center mt-10">
-          <Link to="/projects" className="inline-block bg-primary text-white px-6 py-3 rounded-lg hover:bg-primary-dark transition-colors text-sm font-medium">
-            View All Projects
+          <Link
+            to="/projects"
+            className="text-sm text-text-muted font-medium underline hover:text-primary transition-colors"
+          >
+            View all projects
           </Link>
         </div>
       </div>

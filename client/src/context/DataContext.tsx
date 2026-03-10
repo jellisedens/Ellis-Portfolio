@@ -97,6 +97,7 @@ interface DataContextType {
   services: Service[];
   settings: SiteSettings;
   loading: boolean;
+  hasInitialized: boolean;
 }
 
 const DataContext = createContext<DataContextType>({
@@ -108,6 +109,7 @@ const DataContext = createContext<DataContextType>({
   services: [],
   settings: cachedSettings,
   loading: true,
+  hasInitialized: false,
 });
 
 export function DataProvider({ children }: { children: ReactNode }) {
@@ -119,6 +121,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [services, setServices] = useState<Service[]>([]);
   const [settings, setSettings] = useState<SiteSettings>(cachedSettings);
   const [loading, setLoading] = useState(true);
+  const [hasInitialized, setHasInitialized] = useState(false);
 
   useEffect(() => {
     const fetchAll = async () => {
@@ -147,13 +150,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
         console.error("Failed to load portfolio data:", err);
       } finally {
         setLoading(false);
+        setHasInitialized(true);
       }
     };
     fetchAll();
   }, []);
 
   return (
-    <DataContext.Provider value={{ skills, categories, experiences, education, projects, services, settings, loading }}>
+    <DataContext.Provider value={{ skills, categories, experiences, education, projects, services, settings, loading, hasInitialized }}>
       {children}
     </DataContext.Provider>
   );
