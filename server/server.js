@@ -14,7 +14,14 @@ app.use(express.json());
 // --- 2. CORS ---
 app.use(
   cors({
-    origin: [config.clientUrl, config.adminUrl],
+    origin: function (origin, callback) {
+      const allowed = [config.clientUrl, config.adminUrl].filter(Boolean);
+      if (!origin || allowed.some((url) => origin.startsWith(url) || origin.includes("vercel.app"))) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
   })
 );
 
