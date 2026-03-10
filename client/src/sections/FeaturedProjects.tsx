@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useData } from "../context/DataContext";
 
 export default function FeaturedProjects() {
-  const { projects, categories, loading } = useData();
+  const { projects, loading } = useData();
 
   if (loading) return null;
 
