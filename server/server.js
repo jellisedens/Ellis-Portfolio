@@ -16,7 +16,12 @@ app.use(
   cors({
     origin: function (origin, callback) {
       const allowed = [config.clientUrl, config.adminUrl].filter(Boolean);
-      if (!origin || allowed.some((url) => origin.startsWith(url) || origin.includes("vercel.app"))) {
+      if (
+        !origin ||
+        allowed.some((url) => origin.startsWith(url)) ||
+        origin.includes("vercel.app") ||
+        origin.includes("edenssolutions.net")
+      ) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
