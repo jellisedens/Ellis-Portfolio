@@ -35,12 +35,12 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <a
-            href="/#contact"
+          <Link
+            to="/#contact"
             className="text-sm transition-colors text-text-inverse/60 hover:text-text-inverse"
           >
             Contact
-          </a>
+          </Link>
         </div>
 
         <button
@@ -68,13 +68,13 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <a
-            href="/#contact"
+          <Link
+            to="/#contact"
             onClick={() => setIsOpen(false)}
             className="block text-sm text-text-inverse/60"
           >
             Contact
-          </a>
+          </Link>
         </div>
       )}
     </nav>

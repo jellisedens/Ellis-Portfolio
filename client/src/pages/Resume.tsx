@@ -3,6 +3,7 @@ import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useData } from "../context/DataContext";
 import SkillsByCategory from "../components/SkillsByCategory";
 import TechTags from "../components/TechTags";
+import { Link } from "react-router-dom";
 
 type SectionKey = "experience" | "skills" | "projects" | "education";
 
@@ -212,12 +213,9 @@ export default function Resume() {
             A snapshot of my experience, skills, projects, and education. Click a section below to prioritize it.
           </p>
           <div className="flex justify-center gap-4">
-            <a
-              href="/#contact"
-              className="bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium text-sm"
-            >
-              Get in Touch
-            </a>
+            <Link to="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+            Get in Touch
+          </Link>
           </div>
         </div>
       </div>

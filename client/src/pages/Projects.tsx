@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useData } from "../context/DataContext";
 import TechTags from "../components/TechTags";
+import { Link } from "react-router-dom";
 
 export default function Projects() {
   const { projects, categories, loading } = useData();
@@ -19,12 +20,9 @@ export default function Projects() {
           <p className="text-text-inverse/60 max-w-2xl mx-auto mb-8">
             A collection of things I've built — from full-stack web applications to marketing technology platforms.
           </p>
-          <a
-            href="/#contact"
-            className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium text-sm"
-          >
+          <Link to="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
             Get in Touch
-          </a>
+          </Link>
         </div>
       </div>
 

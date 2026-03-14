@@ -1,4 +1,5 @@
 import { useData } from "../context/DataContext";
+import { Link } from "react-router-dom";
 
 export default function Services() {
   const { services, skills, loading } = useData();
@@ -16,9 +17,9 @@ export default function Services() {
           <p className="text-text-inverse/60 max-w-2xl mx-auto mb-8">
             I help businesses grow with custom web development and data-driven digital marketing. Whether you need a new website, a marketing strategy, or both — I'd love to hear about it.
           </p>
-          <a href="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
-            Start a Conversation
-          </a>
+          <Link to="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+            Get in Touch
+          </Link>
           <div className="grid grid-cols-2 gap-6 mt-12 max-w-sm mx-auto">
             <div className="text-center">
               <p className="text-3xl font-bold text-text-inverse">{yearsExperience}+</p>
@@ -82,9 +83,9 @@ export default function Services() {
           <p className="text-text-inverse/60 max-w-xl mx-auto mb-6">
             Every project starts with a conversation. Tell me what you're working on and I'll let you know how I can help.
           </p>
-          <a href="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
+          <Link to="/#contact" className="inline-block bg-primary text-text-inverse px-8 py-3 rounded-lg hover:bg-primary-dark transition-colors font-medium">
             Get in Touch
-          </a>
+          </Link>
         </div>
       </div>
     </div>
