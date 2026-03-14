@@ -4,6 +4,7 @@ import { DataProvider, useData } from "./context/DataContext";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import LoadingScreen from "./components/LoadingScreen";
+import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Resume from "./pages/Resume";
 import Projects from "./pages/Projects";
@@ -40,6 +41,7 @@ function AppContent() {
 
   return (
     <>
+      <ScrollToTop />
       {!removeLoader && <LoadingScreen exiting={exiting} />}
 
       <div
