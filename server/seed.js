@@ -55,8 +55,11 @@ const seedData = async () => {
       { name: "HTML5", category: catMap["frontend"] },
       { name: "CSS3", category: catMap["frontend"] },
       { name: "JavaScript", category: catMap["frontend"] },
+      { name: "TypeScript", category: catMap["frontend"] },
       { name: "React", category: catMap["frontend"] },
+      { name: "Tailwind CSS", category: catMap["frontend"] },
       { name: "Responsive Design", category: catMap["frontend"] },
+      { name: "Vite", category: catMap["frontend"] },
 
       // Backend
       { name: "Node.js", category: catMap["backend"] },
@@ -66,9 +69,11 @@ const seedData = async () => {
       { name: "C#", category: catMap["backend"] },
       { name: ".NET", category: catMap["backend"] },
       { name: "REST API Design", category: catMap["backend"] },
+      { name: "JWT Authentication", category: catMap["backend"] },
 
       // Database
       { name: "MongoDB", category: catMap["database"] },
+      { name: "MongoDB Atlas", category: catMap["database"] },
       { name: "Mongoose", category: catMap["database"] },
       { name: "SQL", category: catMap["database"] },
 
@@ -80,6 +85,8 @@ const seedData = async () => {
       { name: "Vercel", category: catMap["tools"] },
       { name: "Render", category: catMap["tools"] },
       { name: "WordPress", category: catMap["tools"] },
+      { name: "CI/CD", category: catMap["tools"] },
+      { name: "DNS Management", category: catMap["tools"] },
 
       // Marketing
       { name: "Google Analytics", category: catMap["marketing"] },
@@ -89,6 +96,9 @@ const seedData = async () => {
       { name: "Email Marketing Automation", category: catMap["marketing"] },
       { name: "Data Analysis & Reporting", category: catMap["marketing"] },
       { name: "Campaign Attribution Modeling", category: catMap["marketing"] },
+      { name: "A/B Testing", category: catMap["marketing"] },
+      { name: "CRM Integration", category: catMap["marketing"] },
+      { name: "Marketing Automation Workflows", category: catMap["marketing"] },
 
       // Accessibility
       { name: "WCAG Accessibility", category: catMap["accessibility"] },
@@ -179,6 +189,7 @@ const seedData = async () => {
         ],
         technologies: getSkillIds([
           "JavaScript",
+          "TypeScript",
           "React",
           "Node.js",
           "Express",
@@ -190,7 +201,11 @@ const seedData = async () => {
           "Email Marketing Automation",
           "Data Analysis & Reporting",
           "Campaign Attribution Modeling",
+          "A/B Testing",
+          "CRM Integration",
+          "Marketing Automation Workflows",
           "Git",
+          "CI/CD",
           "Agile/Scrum",
           "Sprint Planning",
           "Cross-Functional Team Leadership",
@@ -221,6 +236,8 @@ const seedData = async () => {
           "Google Analytics",
           "SEO/SEM",
           "Data Analysis & Reporting",
+          "A/B Testing",
+          "CRM Integration",
           "WCAG Accessibility",
           "W3C Web Standards",
           "Git",
@@ -243,22 +260,26 @@ const seedData = async () => {
           "Built a full-stack SaaS quiz platform for higher education enrollment marketing. The app guides users through a 3-phase adaptive quiz — bucket discovery, area refinement, and mindset profiling — then uses a scoring engine to match them with relevant programs and personalized result content. Features include dynamic tenant theming (colors, fonts, branding pulled from the database), lead capture with session tracking, an admin panel for managing programs/questions/results, and CSV import tooling for bulk data. Deployed with Vercel frontends, Render API server, and MongoDB Atlas.",
         technologies: getSkillIds([
           "React",
-          "Node.js",
-          "Express",
-          "MongoDB",
-          "Mongoose",
-          "REST API Design",
+          "JavaScript",
           "CSS3",
           "Responsive Design",
+          "Node.js",
+          "Express",
+          "REST API Design",
+          "JWT Authentication",
+          "MongoDB",
+          "MongoDB Atlas",
+          "Mongoose",
           "Vercel",
           "Render",
           "Git",
           "GitHub",
+          "CI/CD",
         ]),
         projectType: "Full-Stack",
         githubUrl: "https://github.com/jellisedens/mern-why-college-quiz",
-        liveUrl: "https://whycollege.net",
-        status: "In Progress",
+        liveUrl: "https://quiz.whycollege.net",
+        status: "Completed",
       },
       {
         title: "Portfolio Website",
@@ -268,20 +289,29 @@ const seedData = async () => {
           "Personal portfolio website built from the ground up with a React TypeScript frontend and Express API backend. Features a section-based architecture, Tailwind CSS v4 styling, MongoDB data layer with Mongoose schemas, and full CRUD API endpoints for managing content. Designed with a clean separation of concerns and scalable project structure.",
         technologies: getSkillIds([
           "React",
+          "TypeScript",
+          "JavaScript",
+          "Tailwind CSS",
+          "Vite",
+          "Responsive Design",
           "Node.js",
           "Express",
-          "MongoDB",
-          "Mongoose",
           "REST API Design",
-          "CSS3",
-          "Responsive Design",
+          "JWT Authentication",
+          "MongoDB",
+          "MongoDB Atlas",
+          "Mongoose",
+          "Vercel",
+          "Render",
           "Git",
           "GitHub",
+          "CI/CD",
+          "DNS Management",
         ]),
         projectType: "Full-Stack",
         githubUrl: "https://github.com/jellisedens/Ellis-Portfolio",
-        liveUrl: "",
-        status: "In Progress",
+        liveUrl: "https://edenssolutions.net",
+        status: "Completed",
       },
     ];
 
@@ -291,7 +321,7 @@ const seedData = async () => {
     // --- Services ---
     await Service.deleteMany({});
 
-     const services = await Service.create([
+    const services = await Service.create([
       {
         title: "Web Development",
         slug: "web-development",
@@ -306,7 +336,7 @@ const seedData = async () => {
           "Performance optimization and Core Web Vitals",
           "Third-party API integrations",
         ],
-        technologies: getSkillIds(["React", "JavaScript", "HTML5", "CSS3", "Node.js", "Express", "MongoDB", "Mongoose", "Responsive Design"]),
+        technologies: getSkillIds(["React", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "Node.js", "Express", "MongoDB", "Mongoose", "Responsive Design", "Vite"]),
         displayOrder: 1,
         featured: true,
         visible: true,
@@ -325,7 +355,7 @@ const seedData = async () => {
           "Order management workflows",
           "Customer account portals",
         ],
-        technologies: getSkillIds(["React", "Node.js", "Express", "MongoDB", "REST API Design", "Git", "WordPress"]),
+        technologies: getSkillIds(["React", "Node.js", "Express", "MongoDB", "REST API Design", "JWT Authentication", "Git", "WordPress"]),
         displayOrder: 2,
         featured: true,
         visible: true,
@@ -344,7 +374,7 @@ const seedData = async () => {
           "Competitor analysis and market research",
           "Content strategy and copywriting",
         ],
-        technologies: getSkillIds(["SEO/SEM", "Google Analytics", "HubSpot", "Email Marketing Automation", "Data Analysis & Reporting"]),
+        technologies: getSkillIds(["SEO/SEM", "Google Analytics", "HubSpot", "Email Marketing Automation", "Data Analysis & Reporting", "A/B Testing", "CRM Integration", "Marketing Automation Workflows"]),
         displayOrder: 3,
         featured: true,
         visible: true,
@@ -363,7 +393,7 @@ const seedData = async () => {
           "User behavior analysis with heatmaps",
           "Monthly performance reporting",
         ],
-        technologies: getSkillIds(["Google Analytics", "SEO/SEM", "HubSpot", "Data Analysis & Reporting", "Campaign Attribution Modeling"]),
+        technologies: getSkillIds(["Google Analytics", "SEO/SEM", "HubSpot", "Data Analysis & Reporting", "Campaign Attribution Modeling", "A/B Testing"]),
         displayOrder: 4,
         featured: false,
         visible: true,
@@ -382,7 +412,7 @@ const seedData = async () => {
           "CRM integration with your website",
           "Workflow design and implementation",
         ],
-        technologies: getSkillIds(["HubSpot", "Email Marketing Automation", "REST API Design", "Node.js"]),
+        technologies: getSkillIds(["HubSpot", "Email Marketing Automation", "REST API Design", "Node.js", "CRM Integration", "Marketing Automation Workflows"]),
         displayOrder: 5,
         featured: false,
         visible: true,
@@ -424,7 +454,7 @@ const seedData = async () => {
     console.log(`  Education:  ${education.length}`);
     console.log(`  Experience: ${experience.length}`);
     console.log(`  Projects:   ${projects.length}`);
-     console.log(`  Services:   ${services.length}`);
+    console.log(`  Services:   ${services.length}`);
 
     process.exit(0);
   } catch (error) {
