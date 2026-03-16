@@ -6,19 +6,28 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     if (hash) {
-      const el = document.getElementById(hash.replace("#", ""));
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
-      const timeout = setTimeout(() => {
-        const delayed = document.getElementById(hash.replace("#", ""));
-        if (delayed) {
-          delayed.scrollIntoView({ behavior: "smooth" });
+      const id = hash.replace("#", "");
+
+      const scrollToElement = () => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          return true;
         }
-      }, 100);
-      return () => clearTimeout(timeout);
+        return false;
+      };
+
+      if (scrollToElement()) return;
+
+      // Retry with increasing delays until element is found
+      const delays = [100, 300, 600, 1000];
+      const timers = delays.map((delay) =>
+        setTimeout(() => scrollToElement(), delay)
+      );
+
+      return () => timers.forEach(clearTimeout);
     }
+
     window.scrollTo(0, 0);
   }, [pathname, hash]);
 
