@@ -35,10 +35,11 @@ const seedData = async () => {
       { name: "Frontend", slug: "frontend", color: "#3b82f6", icon: "monitor", displayOrder: 1 },
       { name: "Backend", slug: "backend", color: "#10b981", icon: "server", displayOrder: 2 },
       { name: "Database", slug: "database", color: "#f59e0b", icon: "database", displayOrder: 3 },
-      { name: "Tools & Platforms", slug: "tools", color: "#8b5cf6", icon: "wrench", displayOrder: 4 },
-      { name: "Marketing & Analytics", slug: "marketing", color: "#ec4899", icon: "bar-chart", displayOrder: 5 },
-      { name: "Accessibility & Standards", slug: "accessibility", color: "#06b6d4", icon: "shield", displayOrder: 6 },
-      { name: "Leadership & Management", slug: "leadership", color: "#f97316", icon: "users", displayOrder: 7 },
+      { name: "AI & Machine Learning", slug: "ai", color: "#22c55e", icon: "cpu", displayOrder: 4 },
+      { name: "Tools & Platforms", slug: "tools", color: "#8b5cf6", icon: "wrench", displayOrder: 5 },
+      { name: "Marketing & Analytics", slug: "marketing", color: "#ec4899", icon: "bar-chart", displayOrder: 6 },
+      { name: "Accessibility & Standards", slug: "accessibility", color: "#06b6d4", icon: "shield", displayOrder: 7 },
+      { name: "Leadership & Management", slug: "leadership", color: "#f97316", icon: "users", displayOrder: 8 },
     ];
 
     const categories = await Category.insertMany(categoriesData);
@@ -57,6 +58,7 @@ const seedData = async () => {
       { name: "JavaScript", category: catMap["frontend"] },
       { name: "TypeScript", category: catMap["frontend"] },
       { name: "React", category: catMap["frontend"] },
+      { name: "Next.js", category: catMap["frontend"] },
       { name: "Tailwind CSS", category: catMap["frontend"] },
       { name: "Responsive Design", category: catMap["frontend"] },
       { name: "Vite", category: catMap["frontend"] },
@@ -64,18 +66,26 @@ const seedData = async () => {
       // Backend
       { name: "Node.js", category: catMap["backend"] },
       { name: "Express", category: catMap["backend"] },
+      { name: "FastAPI", category: catMap["backend"] },
       { name: "PHP", category: catMap["backend"] },
       { name: "Python", category: catMap["backend"] },
       { name: "C#", category: catMap["backend"] },
       { name: ".NET", category: catMap["backend"] },
       { name: "REST API Design", category: catMap["backend"] },
       { name: "JWT Authentication", category: catMap["backend"] },
+      { name: "SQLAlchemy", category: catMap["backend"] },
 
       // Database
       { name: "MongoDB", category: catMap["database"] },
       { name: "MongoDB Atlas", category: catMap["database"] },
       { name: "Mongoose", category: catMap["database"] },
       { name: "SQL", category: catMap["database"] },
+      { name: "PostgreSQL", category: catMap["database"] },
+      { name: "pgvector", category: catMap["database"] },
+
+      // AI & Machine Learning
+      { name: "OpenAI API", category: catMap["ai"] },
+      { name: "RAG Architecture", category: catMap["ai"] },
 
       // Tools
       { name: "Git", category: catMap["tools"] },
@@ -87,6 +97,9 @@ const seedData = async () => {
       { name: "WordPress", category: catMap["tools"] },
       { name: "CI/CD", category: catMap["tools"] },
       { name: "DNS Management", category: catMap["tools"] },
+      { name: "Docker", category: catMap["tools"] },
+      { name: "Docker Compose", category: catMap["tools"] },
+      { name: "Alembic", category: catMap["tools"] },
 
       // Marketing
       { name: "Google Analytics", category: catMap["marketing"] },
@@ -252,6 +265,39 @@ const seedData = async () => {
 
     // --- Projects ---
     const projectsData = [
+      {
+        title: "AI University Knowledge Repository",
+        summary:
+          "A RAG-powered AI assistant that lets users ask natural language questions about university programs, tuition, and financial aid.",
+        description:
+          "This application solves the problem of navigating complex university information spread across multiple documents and spreadsheets. Users upload program catalogs, tuition schedules, and financial aid documents, then ask questions in plain English. The system uses Retrieval-Augmented Generation (RAG) to find relevant information across all uploaded documents and generate grounded, cited answers. Features an intent-based query routing system that classifies questions and routes to the optimal retrieval strategy — SQL for complete listings, hybrid vector + SQL for cross-document lookups, or standard RAG for general explanations. Includes AI-assisted SQL generation, query expansion with domain abbreviations, and interactive inline data tables.",
+        technologies: getSkillIds([
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Tailwind CSS",
+          "Responsive Design",
+          "Python",
+          "FastAPI",
+          "REST API Design",
+          "JWT Authentication",
+          "PostgreSQL",
+          "pgvector",
+          "SQLAlchemy",
+          "SQL",
+          "OpenAI API",
+          "RAG Architecture",
+          "Git",
+          "GitHub",
+          "Docker",
+          "Docker Compose",
+          "Alembic",
+        ]),
+        projectType: "Full-Stack",
+        githubUrl: "https://github.com/jellisedens/ai-university-rag",
+        liveUrl: "",
+        status: "In Progress",
+      },
       {
         title: "Why College Quiz",
         summary:
