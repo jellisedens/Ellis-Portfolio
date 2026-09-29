@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const protect = require("../middleware/auth");
 const {
   getServices,
   getServiceById,
@@ -8,7 +9,7 @@ const {
   deleteService,
 } = require("../controllers/serviceController");
 
-router.route("/").get(getServices).post(createService);
-router.route("/:id").get(getServiceById).put(updateService).delete(deleteService);
+router.route("/").get(getServices).post(protect, createService);
+router.route("/:id").get(getServiceById).put(protect, updateService).delete(protect, deleteService);
 
 module.exports = router;
